@@ -4,13 +4,16 @@ import numpy as np
 
 class Data:
     def __init__(self, path: str, names = None):
-        self._data = pd.read_csv(path, sep="\t", header=None, names=names)  
+        self._data = pd.read_csv(path, delim_whitespace=True, header=None, names=names)  
 
     def get_data(self):
         return self._data
     
     def print_x_y(self, x, y):
-        print(self._data.values[x][y]) 
+        print(self._data.values[x][y])
+
+    def get_data_x_y(self, x, y):
+        print(self._data.loc[x, y])
 
 
 class Plot:
@@ -51,4 +54,3 @@ class Plot:
 
     def test(self):
         pass
-
