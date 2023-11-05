@@ -28,10 +28,14 @@ class KMeans():
     def calculate_distance(self, sample_1, sample_2):
         return ((sample_1 - sample_2) ** 2).sum() ** 0.5
     
-    def run(self):
+    def run(self, plot=None):
         k = 4
 
         centroids = self.data.sample(n=k)
+
+        plot.wykres_punkty_rysuj_2(self.data['x'], self.data['y'])
+        plot.wykres_punkty_rysuj_2(centroids['x'], centroids['y'], color='blue', marker='X', label='Centroidy')
+        plot.show()
 
         iterations = 1
         for i in range(iterations):
@@ -64,7 +68,7 @@ if __name__ == '__main__':
 
     k_means = KMeans(data)
 
-    clusters, centroids = k_means.run()
+    clusters, centroids = k_means.run(plot)
 
     plot.wykres_punkty_rysuj_2(data.iloc[clusters[0], 0], data.iloc[clusters[0], 1], color='green')
     plot.wykres_punkty_rysuj_2(data.iloc[clusters[1], 0], data.iloc[clusters[1], 1], color='red')
