@@ -45,11 +45,11 @@ class Plot:
         self.wykres_linie_rysuj_x_y(circle_x, circle_y, label='circle')
 
     def show(self):
-        plt.grid(True)
+        # plt.grid(True)
         plt.xlabel('Oś X')
         plt.ylabel('Oś Y')
-        plt.title('plot')
-        plt.legend(loc='upper right', bbox_to_anchor=(1, 1.15))
+        # plt.title('plot')
+        # plt.legend(loc='upper right', bbox_to_anchor=(1, 1.15))
         plt.show()
 
     def test(self):

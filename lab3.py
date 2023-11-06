@@ -1,5 +1,6 @@
 import numpy as np
 from main import Plot, Data
+import matplotlib.pyplot as plt
 
 #zad 1
 # def array_of_array_of_strings_to_float(x = []):
@@ -33,9 +34,7 @@ class KMeans():
 
         centroids = self.data.sample(n=k)
 
-        plot.wykres_punkty_rysuj_2(self.data['x'], self.data['y'])
-        plot.wykres_punkty_rysuj_2(centroids['x'], centroids['y'], color='blue', marker='X', label='Centroidy')
-        plot.show()
+        initial_centroids = centroids.copy()
 
         iterations = 1
         for i in range(iterations):
@@ -52,6 +51,17 @@ class KMeans():
                 for j in range(k):
                     if len(clusters[j]) > 0:
                         centroids.iloc[j] = self.data.loc[clusters[j]].mean()
+
+        if i == 0:
+            plt.figure(figsize=(10, 6))
+            plot.subplot(1, 2, 1)
+            plot.wykres_punkty_rysuj_2(data.iloc[clusters[0], 0], data.iloc[clusters[0], 1], color='green', label='grupa 1')
+            plot.wykres_punkty_rysuj_2(data.iloc[clusters[1], 0], data.iloc[clusters[1], 1], color='red', label='grupa 2')
+            plot.wykres_punkty_rysuj_2(data.iloc[clusters[2], 0], data.iloc[clusters[2], 1], color='yellow', label='grupa 3')
+            plot.wykres_punkty_rysuj_2(data.iloc[clusters[3], 0], data.iloc[clusters[3], 1], color='pink', label='grupa 4')
+            plot.wykres_punkty_rysuj_2(initial_centroids['x'], initial_centroids['y'], color='blue', marker='X', label='Centroidy')
+            plt.legend()
+            plt.title('Pierwsza iteracja')
         return clusters, centroids
             
 
@@ -70,10 +80,18 @@ if __name__ == '__main__':
 
     clusters, centroids = k_means.run(plot)
 
-    plot.wykres_punkty_rysuj_2(data.iloc[clusters[0], 0], data.iloc[clusters[0], 1], color='green')
-    plot.wykres_punkty_rysuj_2(data.iloc[clusters[1], 0], data.iloc[clusters[1], 1], color='red')
-    plot.wykres_punkty_rysuj_2(data.iloc[clusters[2], 0], data.iloc[clusters[2], 1], color='yellow')
-    plot.wykres_punkty_rysuj_2(data.iloc[clusters[3], 0], data.iloc[clusters[3], 1], color='pink')
+
+    plot.subplot(1, 2, 2)
+
+    plot.wykres_punkty_rysuj_2(data.iloc[clusters[0], 0], data.iloc[clusters[0], 1], color='green', label='grupa 1')
+    plot.wykres_punkty_rysuj_2(data.iloc[clusters[1], 0], data.iloc[clusters[1], 1], color='red', label='grupa 2')
+    plot.wykres_punkty_rysuj_2(data.iloc[clusters[2], 0], data.iloc[clusters[2], 1], color='yellow', label='grupa 3')
+    plot.wykres_punkty_rysuj_2(data.iloc[clusters[3], 0], data.iloc[clusters[3], 1], color='pink', label='grupa 4')
 
     plot.wykres_punkty_rysuj_2(centroids['x'], centroids['y'], color='blue', marker='X', label='Centroidy')
-    plot.show()
+    
+    plt.legend()
+    plt.title('Ostatnia iteracja')
+    plt.xlabel('x')
+    plt.xlabel('y')
+    plt.show()
